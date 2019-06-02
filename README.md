@@ -13,6 +13,9 @@ python3 manage.py migrate
 # create an admin account
 python3 manage.py createsuperuser
 
+# start the server
+python3 manage.py runserver
+
 ```
 
 access the admin interface at <http://127.0.0.1:8000/admin/>
