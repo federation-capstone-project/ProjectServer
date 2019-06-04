@@ -19,8 +19,18 @@ class Event(models.Model):
 class Student(models.Model):
     student_name = models.CharField(max_length=200)
     student_id = models.CharField(max_length=200)
+    student_phone = models.CharField(max_length=200)
+    student_email = models.CharField(max_length=200)
+    student_percent = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.student_name + " - " + self.student_id
 
 class Clinician(models.Model):
     clinician_name = models.CharField(max_length=200)
     staff_id = models.CharField(max_length=200)
+    staff_email = models.CharField(max_length=200)
     staff_mac_address = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.clinician_name
