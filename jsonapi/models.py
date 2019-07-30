@@ -26,6 +26,11 @@ class Student(models.Model):
     def __str__(self):
         return self.student_name + " - " + self.student_id
 
+class StudentEvent(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.PROTECT)
+    event = models.ForeignKey(Event, on_delete=models.PROTECT)
+    adttended = models.BooleanField(default=False)
+
 class Clinician(models.Model):
     clinician_name = models.CharField(max_length=200)
     staff_id = models.CharField(max_length=200)

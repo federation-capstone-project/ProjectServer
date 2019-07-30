@@ -5,7 +5,6 @@ import json
 
 # Create your views here.
 def index(request):
-    #return HttpResponse("ya found the server boiii")
     event_data = []
     for event in Event.objects.all():
         event_data.append({
@@ -17,3 +16,7 @@ def index(request):
             'mac':event.mac
         })
     return HttpResponse(json.dumps(event_data))
+
+def post(request):
+    if request.method == 'POST':
+        post_data = json.loads(request.body)
