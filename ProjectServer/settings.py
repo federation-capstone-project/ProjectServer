@@ -25,7 +25,7 @@ SECRET_KEY = 'wd2o#o42=s7b--qtt9$t&f1x@&#wsr0#2n6l(2maxkp4k*ki^9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["capstone.blny.me", "localhost","127.0.0.1"]
+ALLOWED_HOSTS = ["https://capstone.blny.me", "192.168.15.120", "localhost","127.0.0.1"]
 
 
 # Application definition
@@ -119,4 +119,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATIC_URL = '/static/'
+

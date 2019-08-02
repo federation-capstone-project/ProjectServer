@@ -7,6 +7,9 @@ server {
     server_name capstone.blny.me;
     charset utf-8;
     
+    location /static {
+    	alias /home/nineh/ProjectServer/static;
+    }
     location / { 
         uwsgi_pass django;
         include /home/nineh/ProjectServer/uwsgi_params;
