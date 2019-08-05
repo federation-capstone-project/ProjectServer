@@ -13,8 +13,6 @@ router.register(r'students', StudentViewSet, basename='Students')
 router.register(r'studentevents', StudentEventViewSet, basename='StudentEvents')
 
 urlpatterns = [
-    #path('', views.index, name='index'),
-    #path('post/', views.post, name='post')
     url(r'^', include(router.urls)),
     url(r'^api-auth', include('rest_framework.urls'))
 ]
