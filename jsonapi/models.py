@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework import routers, serializers, viewsets
 
 # Create your models here.
 
@@ -16,6 +17,15 @@ class Event(models.Model):
     def __str__(self):
         return self.title + " - " + self.teacher
 
+class EventSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['id','title', 'room']
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
 class Student(models.Model):
     student_name = models.CharField(max_length=200)
     student_id = models.CharField(max_length=200)
@@ -26,10 +36,28 @@ class Student(models.Model):
     def __str__(self):
         return self.student_name + " - " + self.student_id
 
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['student_id','student_name','student_phone','student_email','student_percent']
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
 class StudentEvent(models.Model):
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
-    adttended = models.BooleanField(default=False)
+    attended = models.BooleanField(default=False)
+
+class StudentEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentEvent
+        fields = ['student', 'event', 'attended']
+
+class StudentEventViewSet(viewsets.ModelViewSet):
+    queryset = queryset = StudentEvent.objects.none()
+    serializer_class = StudentEventSerializer
 
 class Clinician(models.Model):
     clinician_name = models.CharField(max_length=200)

@@ -4,6 +4,10 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    StudentEvent.list_filter = ('event')
+
+admin.site.register(Event, EventAdmin)
+admin.site.register(StudentEvent)
 admin.site.register(Student)
 admin.site.register(Clinician)
