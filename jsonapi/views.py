@@ -34,8 +34,8 @@ class StudentList(APIView):
 #change this to return all of the students attendance records
 class StudentEventView(APIView):
     def get(self, request, format=None):
-        studentevents = StudentEvents.objects.none()
-        serializer = StudentSerializer(students)
+        studentevents = StudentEvents.objects.all()
+        serializer = StudentEventSerializer(students)
 
     def post(self, request, format=None):
         serializer = StudentEventSerializer(data=request.DATA)

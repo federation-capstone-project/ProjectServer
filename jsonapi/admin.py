@@ -7,6 +7,8 @@ from .models import *
 class StudentEventAdmin(admin.ModelAdmin):
      list_filter = ('event', 'student')
 
+admin.site.register(User)
+admin.site.register(Course)
 admin.site.register(Event)#, EventAdmin)
 admin.site.register(StudentEvent, StudentEventAdmin)
 admin.site.register(Student)
