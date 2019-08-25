@@ -45,9 +45,18 @@ class Course(models.Model):
     def __str__(self):
         return self.course_code + " - " + self.course_name
 
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ['course_code', 'course_name']
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
 class Event(models.Model):
     event_title = models.CharField(max_length=200)
-    event_course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    event_course = models.ForeignKey(Course, on_delete=models.PROTECT)
     event_clinician = models.ForeignKey(Clinician, on_delete=models.PROTECT)
     event_location = models.CharField(max_length=200)
     event_starttime = models.DateTimeField('Starting time')
@@ -55,19 +64,17 @@ class Event(models.Model):
     event_repeating = models.BooleanField(default=True)
     event_frequency = models.PositiveSmallIntegerField()
 
-    #event_mac = self.event_clinician.clinician_mac
-    
     def __str__(self):
-        return self.title# + " - " + Clinician.objects.filter(id=teacher).clinician_name#self.teacher.clinician_name
+        return self.event_title# + " - " + Clinician.objects.filter(id=teacher).clinician_name#self.teacher.clinician_name
 
 class EventSerializer(serializers.ModelSerializer):
-    event_code = serializers.RelatedField(source='event_course', read_only=True)
-    clinician_name = serializers.RelatedField(source='event_clinician', read_only=True)
-    clinician_mac = serializers.RelatedField(source='event_clinician', read_only=True)
-    
+    course_code = serializers.ReadOnlyField(source='event_course.course_code')
+    clinician_name = serializers.ReadOnlyField(source='event_clinician.clinician_name')
+    clinician_mac = serializers.ReadOnlyField(source='event_clinician.clinician_mac')
+
     class Meta:
         model = Event
-        fields = ['id','event_title', 'event_code', 'event_clinician', 'clinician_name', 'clinician_mac', 'event_starttime', 'event_finishtime', 'event_repeating', 'event_frequency']
+        fields = ['id','event_title', 'course_code', 'event_clinician', 'clinician_name', 'clinician_mac', 'event_starttime', 'event_finishtime', 'event_repeating', 'event_frequency']
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
