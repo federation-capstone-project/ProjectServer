@@ -29,6 +29,15 @@ class Clinician(models.Model):
     def __str__(self):
         return self.clinician_name
 
+class ClinicianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Clinician
+        fields = ['clinician_name', 'clinician_mac']
+
+class ClinicianViewSet(viewsets.ModelViewSet):
+    queryset = Clinician.objects.all()
+    serializer_class = ClinicianSerializer
+
 class Course(models.Model):
     course_code = models.CharField(max_length=200)
     course_name = models.CharField(max_length=200)
@@ -40,9 +49,11 @@ class Event(models.Model):
     event_title = models.CharField(max_length=200)
     event_course = models.ForeignKey(Course, on_delete=models.CASCADE)
     event_clinician = models.ForeignKey(Clinician, on_delete=models.PROTECT)
-    event_room = models.CharField(max_length=200)
-    event_time = models.DateTimeField('Starting time')
+    event_location = models.CharField(max_length=200)
+    event_starttime = models.DateTimeField('Starting time')
+    event_finishtime = models.DateTimeField('Ending time')
     event_repeating = models.BooleanField(default=True)
+    event_frequency = models.PositiveSmallIntegerField()
 
     #event_mac = self.event_clinician.clinician_mac
     
@@ -50,15 +61,20 @@ class Event(models.Model):
         return self.title# + " - " + Clinician.objects.filter(id=teacher).clinician_name#self.teacher.clinician_name
 
 class EventSerializer(serializers.ModelSerializer):
+    event_code = serializers.RelatedField(source='event_course', read_only=True)
+    clinician_name = serializers.RelatedField(source='event_clinician', read_only=True)
+    clinician_mac = serializers.RelatedField(source='event_clinician', read_only=True)
+    
     class Meta:
         model = Event
-        fields = ['id','title', 'teacher', 'room', 'mac', 'time', 'repeating']
+        fields = ['id','event_title', 'event_code', 'event_clinician', 'clinician_name', 'clinician_mac', 'event_starttime', 'event_finishtime', 'event_repeating', 'event_frequency']
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
 
 class Student(models.Model):
+    student_courses = models.ManyToManyField(Course)
     student_user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_name = models.CharField(max_length=200)
     student_id = models.CharField(max_length=200)
