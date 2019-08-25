@@ -9,8 +9,7 @@ from rest_framework import routers, serializers, viewsets
 
 router = routers.DefaultRouter()
 router.register(r'events', EventViewSet, basename='Events')
-router.register(r'students', StudentViewSet, basename='Students')
-#router.register(r'studentevents', StudentEventViewSet, basename='StudentEvents')
+router.register(r'studentevent', StudentEventViewSet, basename='StudentEvents')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

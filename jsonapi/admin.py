@@ -11,6 +11,6 @@ class StudentEventAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(Course)
 admin.site.register(Event)#, EventAdmin)
-#admin.site.register(StudentEvent, StudentEventAdmin)
+admin.site.register(StudentEvent, StudentEventAdmin)
 admin.site.register(Student)
 admin.site.register(Clinician)

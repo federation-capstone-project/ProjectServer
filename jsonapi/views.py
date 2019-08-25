@@ -32,14 +32,14 @@ class EventList(APIView):
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #change this to return all of the students attendance records
-# class StudentEventView(APIView):
-#     def get(self, request, format=None):
-#         studentevents = StudentEvents.objects.all()
-#         serializer = StudentEventSerializer(students)
+class StudentEventView(APIView):
+    def get(self, request, format=None):
+        studentevents = StudentEvents.objects.all()
+        serializer = StudentEventSerializer(students)
 
-#     def post(self, request, format=None):
-#         serializer = StudentEventSerializer(data=request.DATA)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        serializer = StudentEventSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

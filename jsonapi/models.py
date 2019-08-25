@@ -101,6 +101,7 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+# investigate this to get rid of these classes https://stackoverflow.com/questions/1182380/how-to-add-data-into-manytomany-field#1182577
 class StudentEvent(models.Model):
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
@@ -108,7 +109,7 @@ class StudentEvent(models.Model):
     manual = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.event.title + " - " + self.student.student_name
+        return self.event.event_title + " - " + self.student.student_name
 
 class StudentEventSerializer(serializers.ModelSerializer):
     class Meta:
