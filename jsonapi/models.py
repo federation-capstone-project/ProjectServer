@@ -32,7 +32,7 @@ class Clinician(models.Model):
 class ClinicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clinician
-        fields = ['clinician_name', 'clinician_mac']
+        fields = ['clinician_name', 'clinician_phone', 'clinician_email', 'clinician_mac']
 
 class ClinicianViewSet(viewsets.ModelViewSet):
     queryset = Clinician.objects.all()
@@ -65,7 +65,7 @@ class Event(models.Model):
     event_frequency = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return self.event_title# + " - " + Clinician.objects.filter(id=teacher).clinician_name#self.teacher.clinician_name
+        return self.event_title + " - " + self.event_clinician.clinician_name
 
 class EventSerializer(serializers.ModelSerializer):
     course_code = serializers.ReadOnlyField(source='event_course.course_code')
@@ -74,7 +74,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ['id','event_title', 'course_code', 'event_clinician', 'clinician_name', 'clinician_mac', 'event_starttime', 'event_finishtime', 'event_repeating', 'event_frequency']
+        fields = ['id','event_title', 'course_code', 'event_clinician', 'clinician_name', 'clinician_mac', 'event_location', 'event_starttime', 'event_finishtime', 'event_repeating', 'event_frequency']
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
