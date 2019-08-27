@@ -31,7 +31,6 @@ CSRF_TRUSTED_ORIGINS = ['capstone.blny.me']
 # Application definition
 
 INSTALLED_APPS = [
-    'frontend.apps.FrontendConfig',
     'jsonapi.apps.JsonapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
