@@ -17,7 +17,7 @@ class User(AbstractUser):
         (3, 'student'),
     )
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, null=True)
-        
+
 class Clinician(models.Model):
     clinician_user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     clinician_name = models.CharField(max_length=200)
@@ -25,7 +25,7 @@ class Clinician(models.Model):
     clinician_phone = PhoneNumberField()
     clinician_email = models.EmailField()
     clinician_mac = models.CharField(max_length=200)
-    
+
     def __str__(self):
         return self.clinician_name
 
@@ -34,9 +34,9 @@ class ClinicianSerializer(serializers.ModelSerializer):
         model = Clinician
         fields = ['clinician_name', 'clinician_phone', 'clinician_email', 'clinician_mac']
 
-class ClinicianViewSet(viewsets.ModelViewSet):
-    queryset = Clinician.objects.all()
-    serializer_class = ClinicianSerializer
+# class ClinicianViewSet(viewsets.ModelViewSet):
+#     queryset = Clinician.objects.all()
+#     serializer_class = ClinicianSerializer
 
 class Course(models.Model):
     course_code = models.CharField(max_length=200)
@@ -50,9 +50,9 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ['course_code', 'course_name']
 
-class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+# class CourseViewSet(viewsets.ModelViewSet):
+#     queryset = Course.objects.all()
+#     serializer_class = CourseSerializer
 
 class Event(models.Model):
     event_title = models.CharField(max_length=200)
@@ -88,18 +88,18 @@ class Student(models.Model):
     student_phone = PhoneNumberField()
     student_email = models.EmailField()
     student_percent = models.CharField(max_length=200)
-    
+
     def __str__(self):
         return self.student_name + " - " + self.student_id
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['student_id','student_name','student_phone','student_email','student_percent']
+        fields = ['student_id','student_courses']
 
-class StudentViewSet(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+# class StudentViewSet(viewsets.ModelViewSet):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
 
 # investigate this to get rid of these classes https://stackoverflow.com/questions/1182380/how-to-add-data-into-manytomany-field#1182577
 class StudentEvent(models.Model):
@@ -117,5 +117,5 @@ class StudentEventSerializer(serializers.ModelSerializer):
         fields = ['student', 'event', 'attended', 'manual']
 
 class StudentEventViewSet(viewsets.ModelViewSet):
-    queryset = queryset = StudentEvent.objects.none()
+    queryset = StudentEvent.objects.none()
     serializer_class = StudentEventSerializer

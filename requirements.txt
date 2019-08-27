@@ -3,5 +3,6 @@ pytz==2019.1
 sqlparse==0.3.0
 djangorestframework
 uwsgi
+django-filter
 django-phonenumber-field
 phonenumbers

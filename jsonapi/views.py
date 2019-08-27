@@ -1,45 +1,22 @@
-from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+#from django.shortcuts import render
+#from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from . import models
 from .models import *
-import json
+from rest_framework import generics
 
-class EventList(APIView):
-    def get(self, request, format=None):
-        events = Event.objects.all()
-        serializer = EventSerializer(events, many=True)
-        return Response(serializer.data)
 
-    def post(self, request, format=None):
-        serializer = EventSerializer(data=request.DATA)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class MyEventsList(generics.ListAPIView):
+    serializer_class = EventSerializer
 
-# class StudentList(APIView):
-#     def get(self, request, format=None):
-#         students = Student.objects.none()
-#         serializer = StudentSerializer(students, many=True)
-#         return Response(serializer.data)
+    def get_queryset(self):
+        student = self.kwargs['student']
+        the_student = Student.objects.filter(id=student)
+        courses = the_student.values_list('student_courses')
+        return Event.objects.filter(event_course__in=courses)
 
-#     def post(self, request, format=None):
-#         serializer = StudentSerializer(data=request.DATA)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class MyCourseList(generics.ListAPIView):
+    serializer_class = StudentSerializer
 
-#change this to return all of the students attendance records
-class StudentEventView(APIView):
-    def get(self, request, format=None):
-        studentevents = StudentEvents.objects.all()
-        serializer = StudentEventSerializer(students)
-
-    def post(self, request, format=None):
-        serializer = StudentEventSerializer(data=request.DATA)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status.HTTP_201_CREATED)
-        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+    def get_queryset(self):
+        return Student.objects.filter(id=self.kwargs['student'])
