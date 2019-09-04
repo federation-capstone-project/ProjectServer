@@ -1,7 +1,9 @@
 from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
 from .models import *
 from .forms import *
 from rest_framework import generics
+from django.http import HttpResponse
 from django.contrib.auth import login
 from django.views.generic import CreateView
 
@@ -30,6 +32,8 @@ class StudentSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        status = "success"
+        token = Token.objects.create(user=user)
         login(self.request, user)
-        return redirect('students:quiz_list')
+        return HttpResponse('{"status":"%s", "token":"%s"}' % (status, token.key))
 
