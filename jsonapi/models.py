@@ -18,18 +18,28 @@ class User(AbstractUser):
     )
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, null=True)
 
+
+class Tile(models.Model):
+    tile_name = models.CharField(max_length=200)
+    tile_mac = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.tile_name
+
 class Clinician(models.Model):
     clinician_user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     clinician_name = models.CharField(max_length=200)
     clinician_id = models.CharField(max_length=200)
     clinician_phone = PhoneNumberField()
     clinician_email = models.EmailField()
-    clinician_mac = models.CharField(max_length=200)
+    clinician_tile = models.ForeignKey(Tile, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.clinician_name
 
 class ClinicianSerializer(serializers.ModelSerializer):
+    clinician_mac = serializers.ReadOnlyField(source='clinician_tile.tile_mac')
+
     class Meta:
         model = Clinician
         fields = ['clinician_name', 'clinician_phone', 'clinician_email', 'clinician_mac']
@@ -70,7 +80,7 @@ class Event(models.Model):
 class EventSerializer(serializers.ModelSerializer):
     course_code = serializers.ReadOnlyField(source='event_course.course_code')
     clinician_name = serializers.ReadOnlyField(source='event_clinician.clinician_name')
-    clinician_mac = serializers.ReadOnlyField(source='event_clinician.clinician_mac')
+    clinician_mac = serializers.ReadOnlyField(source='event_clinician.clinician_tile.tile_mac')
 
     class Meta:
         model = Event
