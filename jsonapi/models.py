@@ -91,13 +91,14 @@ class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
 
 class Student(models.Model):
-    student_courses = models.ManyToManyField(Course)
     student_user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_name = models.CharField(max_length=200)
     student_id = models.CharField(max_length=200)
     student_phone = PhoneNumberField()
     student_email = models.EmailField()
     student_percent = models.CharField(max_length=200)
+    student_courses = models.ManyToManyField(Course)
+    student_events = models.ManyToManyField(Event, through='StudentEvent')
 
     def __str__(self):
         return self.student_name + " - " + self.student_id
