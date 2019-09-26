@@ -1,5 +1,4 @@
 from django.urls import path
-
 from django.conf.urls import url, include
 from rest_framework.views import APIView
 from .models import *
@@ -8,7 +7,6 @@ from rest_framework import routers, serializers, viewsets
 
 router = routers.DefaultRouter()
 router.register(r'events', EventViewSet, basename='Events')
-#router.register(r'mycourses', StudentViewSet, basename='Student')
 router.register(r'studentevent', StudentEventViewSet, basename='StudentEvents')
 
 urlpatterns = [

@@ -29,11 +29,11 @@ class StudentSignUpView(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'student'
         return super().get_context_data(**kwargs)
-
+    
+    #is there a framework method for this?
     def form_valid(self, form):
         user = form.save()
         status = "success"
         token = Token.objects.create(user=user)
         login(self.request, user)
         return HttpResponse('{"status":"%s", "token":"%s"}' % (status, token.key))
-
