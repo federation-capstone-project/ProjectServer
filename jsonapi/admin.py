@@ -13,11 +13,12 @@ class StudentEventInline(admin.TabularInline):
 
 class StudentAdmin(admin.ModelAdmin):
     inlines = (StudentEventInline,)
+    extra = 0
 
+admin.site.register(Student, StudentAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Course)
 admin.site.register(Event)#, EventAdmin)
 #admin.site.register(StudentEvent, StudentEventAdmin)
-admin.site.register(Student, StudentAdmin)
 admin.site.register(Clinician)
 admin.site.register(Tile)

@@ -96,12 +96,21 @@ class Student(models.Model):
     student_id = models.CharField(max_length=200)
     student_phone = PhoneNumberField()
     student_email = models.EmailField()
-    student_percent = models.CharField(max_length=200)
     student_courses = models.ManyToManyField(Course)
     student_events = models.ManyToManyField(Event, through='StudentEvent')
 
+    @property
+    def student_percent(self):
+        my_events = StudentEvent.objects.filter(student_id=self.student_id)
+        events = my_events.count()
+        attended = my_events.filter(attended=True).count()
+        try:
+            return "{}% ({} of {})".format(attended/events*100, attended, events)
+        except:
+            return "no listed events for this student"
+
     def __str__(self):
-        return self.student_name + " - " + self.student_id
+        return self.student_name + " - " + self.student_id + " - " + self.student_percent
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
