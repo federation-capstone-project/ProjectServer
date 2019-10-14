@@ -75,7 +75,7 @@ class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
 
 class Student(models.Model):
-    student_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    student_user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     student_name = models.CharField(max_length=200)
     student_id = models.CharField(max_length=200)
     student_phone = PhoneNumberField()

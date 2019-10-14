@@ -1,0 +1,50 @@
+[
+  {
+    "model" : "jsonapi.student",
+    "pk" : 1,
+    "fields" : {
+      "student_name" : "Nine Hall",
+      "student_id" : "11111111",
+      "student_phone" : "+61400000000",
+      "student_email" : "fake123@fake.com",
+      "student_courses" : [
+      ]
+    }
+  },
+  {
+    "model" : "jsonapi.student",
+    "pk" : 2,
+    "fields" : {
+      "student_name" : "Nathan Blaney",
+      "student_id" : "22222222",
+      "student_phone" : "+61400000000",
+      "student_email" : "fake123@fake.com",
+      "student_courses" : [
+      ]
+    }
+  },
+  {
+    "model" : "jsonapi.student",
+    "pk" : 3,
+    "fields" : {
+      "student_name" : "Lachlan Copsey",
+      "student_id" : "33333333",
+      "student_phone" : "+61400000000",
+      "student_email" : "fake123@fake.com",
+      "student_courses" : [
+      ]
+    }
+  },
+  {
+   "model" : "jsonapi.student",
+   "pk" : 4,
+   "fields" : {
+     "student_name" : "Tayyaba Hussana",
+     "student_id" : "44444444",
+     "student_phone" : "+61400000000",
+     "student_email" : "fake123@fake.com",
+     "student_courses" : [
+     ]
+   }
+ }
+]
