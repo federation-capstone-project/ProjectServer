@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^signup', StudentSignUpView.as_view(), name='registration'),
     url(r'^mycourses/(?P<student>.+)/$', MyCourseList.as_view()),
-    url(r'^myevents/(?P<student>.+)/$', MyEventsList.as_view()),
+    url(r'^myinfo/$', MyStudentInfo.as_view()),
+    url(r'^myevents/$', MyEventsList.as_view()),
     url(r'^api-auth', include('rest_framework.urls'))
 ]

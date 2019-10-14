@@ -11,7 +11,7 @@ class MyEventsList(generics.ListAPIView):
     serializer_class = EventSerializer
 
     def get_queryset(self):
-        student = Student.objects.filter(id=self.kwargs['student'])
+        student = Student.objects.filter(student_user=self.request.user)
         courses = student.values_list('student_courses')
         return Event.objects.filter(event_course__in=courses)
 
@@ -21,6 +21,12 @@ class MyCourseList(generics.ListAPIView):
     def get_queryset(self):
         return Student.objects.filter(id=self.kwargs['student'])
 
+class MyStudentInfo(generics.ListAPIView):
+    serializer_class = StudentInfoSerializer
+    
+    def get_queryset(self):
+        return Student.objects.filter(student_user=self.request.user)
+
 class StudentSignUpView(CreateView):
     model = User
     form_class = StudentSignUpForm
@@ -29,7 +35,7 @@ class StudentSignUpView(CreateView):
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'student'
         return super().get_context_data(**kwargs)
-    
+
     #is there a framework method for this?
     def form_valid(self, form):
         user = form.save()

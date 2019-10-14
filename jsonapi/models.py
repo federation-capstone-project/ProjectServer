@@ -83,9 +83,18 @@ class Student(models.Model):
     student_courses = models.ManyToManyField(Course)
     student_events = models.ManyToManyField(Event, through='StudentEvent')
 
-    # this may need to become a decimal
     @property
     def student_percent(self):
+        my_events = StudentEvent.objects.filter(student_id=self.student_id)
+        events = my_events.count()
+        attended = my_events.filter(attended=True).count()
+        try:
+            return attended/events
+        except:
+            return 1.0
+    
+    @property
+    def student_percent_string(self):
         my_events = StudentEvent.objects.filter(student_id=self.student_id)
         events = my_events.count()
         attended = my_events.filter(attended=True).count()
@@ -95,12 +104,17 @@ class Student(models.Model):
             return "no listed events for this student"
 
     def __str__(self):
-        return " - ".join([self.student_name, self.student_id, self.student_percent])
+        return " - ".join([self.student_name, self.student_id, self.student_percent_string])
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['student_id','student_courses']
+        
+class StudentInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['student_name', 'student_id', 'student_percent', 'student_percent_string', 'student_phone', 'student_email', 'student_courses']
 
 class StudentEvent(models.Model):
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
