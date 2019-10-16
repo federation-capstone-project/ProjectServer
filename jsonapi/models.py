@@ -2,6 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from rest_framework import routers, serializers, viewsets
 from django.contrib.auth.models import AbstractUser
+from datetime import date, timedelta
 
 class User(AbstractUser):
     USER_TYPE_CHOICES = (
@@ -133,3 +134,42 @@ class StudentEventSerializer(serializers.ModelSerializer):
 class StudentEventViewSet(viewsets.ModelViewSet):
     queryset = StudentEvent.objects.none()
     serializer_class = StudentEventSerializer
+
+class Config(models.Model):
+    starting_date = models.DateField(default=date.today())
+    ending_date = models.DateField(default=date.today()+timedelta(weeks=12))
+    
+    # By overriding these methods config becomes a singleton.
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(Config, self).save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        pass
+    
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
