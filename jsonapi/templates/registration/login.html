@@ -1,0 +1,20 @@
+{% load static %}<!doctype html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        {% block content %}
+          <div class="row">
+            <div class="col-md-8 col-sm-10 col-12">
+              <h2>Log in</h2>
+              <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Log in</button>
+              </form>
+            </div>
+          </div>
+        {% endblock %}
+    </body>
+</html>
