@@ -44,7 +44,7 @@ os.system("mkdir -p {}".format(installdir))
 os.system("cp -r {} {}".format(path, installdir))
 
 # change the owner
-os.system("chown -r {} :www-data".format(installdir))
+os.system("chown -R {} :www-data".format(installdir))
 
 # install systemd unit file
 with open(path+"/unix_configs/systemd_template", "r") as template:
