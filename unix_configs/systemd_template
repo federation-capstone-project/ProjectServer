@@ -1,0 +1,13 @@
+[Unit]
+Description=Capstone Server
+After=network.target
+
+[Service]
+Type=simple
+User=django
+WorkingDirectory={}
+ExecStart=/usr/local/bin/uwsgi --socket :8001 --module ProjectServer.wsgi
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
