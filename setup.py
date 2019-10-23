@@ -66,8 +66,10 @@ os.system("systemctl enable nginx && systemctl start nginx")
 # configure the app
 #
 
+os.system("cd{}".format(installdir))
+
 # set up static files
-os.system("cd {} && python3 manage.py makestatic".format(installdir))
+os.system("cd {}python3 manage.py makestatic")
 
 # init database and add admin account
 os.system('python3 manage.py makemigrations jsonapi')
