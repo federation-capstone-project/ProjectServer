@@ -32,10 +32,10 @@ installdir = "/var/www/html/capstoneserver"
 
 # install the dependencies
 os.system("apt update && apt install -y python3-pip nginx")
-os.system("pip3 install -n {}/requirements.txt".format(path))
+os.system("pip3 install -r {}/requirements.txt".format(path))
 
 # create a django user and add him to www-data group
-os.system("adduser -G www-data django")
+os.system("adduser --system --ingroup www-data django")
 
 # make a new directory in /var/www/html/ and assign it to the www-data group
 os.system("mkdir -p {}".format(installdir))
@@ -70,6 +70,8 @@ os.system("systemctl enable nginx && systemctl start nginx")
 os.system("cd {} && python3 manage.py makestatic".format(installdir))
 
 # init database and add admin account
+os.system('python3 manage.py makemigrations jsonapi')
+os.system('python3 manage.py migrate jsonapi')
 os.system('python3 manage.py createsuperuser --username administrator --email ""')
 
 print("\nInstall possibly complete, have a wonderful day! :D")
