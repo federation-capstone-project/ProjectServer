@@ -1,20 +1,18 @@
-upstream django { 
+upstream django {{
     server 127.0.0.1:8001;
-}
+}}
 
-server {
+server {{
     listen 80;
     server_name {};
     charset utf-8;
 
-    location /static {
+    location /static {{
     	alias {}/static;
-    }
+    }}
 
-    location / { 
+    location / {{
         uwsgi_pass django;
         include {}/uwsgi_params;
-    }
-}
-
-
+    }}
+}}

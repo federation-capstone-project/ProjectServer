@@ -44,7 +44,7 @@ os.system("mkdir -p {}".format(installdir))
 os.system("cp -r {} {}".format(path, installdir))
 
 # change the owner
-os.system("chown -R {} :www-data".format(installdir))
+os.system("chown -R :www-data {}".format(installdir))
 
 # install systemd unit file
 with open(path+"/unix_configs/systemd_template", "r") as template:
@@ -59,7 +59,9 @@ with open(path+"/unix_configs/nginx_template", "r") as template:
     with open(path+"/unix_configs/nginx", "w") as config:
         config.write(template.read().format(domain, installdir, installdir))
 
-os.system("ln -s {} /etc/nginx/sites-enabled/capstoneserver".format(os.path.join(path, "unix_configs/nginx")))
+os.system("ln -s {} /etc/nginx/sites-available/projectserver".format(os.path.join(path, "unix_configs/nginx")))
+os.system("ln -s {} /etc/nginx/sites-enabled/projectserver".format(os.path.join(path, "unix_configs/nginx")))
+os.system("rm /etc/nginx/sites-enabled/default")
 os.system("systemctl enable nginx && systemctl start nginx")
 
 #
@@ -73,7 +75,7 @@ os.system("cd {}python3 manage.py makestatic")
 
 # init database and add admin account
 os.system('python3 manage.py makemigrations jsonapi')
-os.system('python3 manage.py migrate jsonapi')
+os.system('python3 manage.py migrate')
 os.system('python3 manage.py createsuperuser --username administrator --email ""')
 
 print("\nInstall possibly complete, have a wonderful day! :D")
