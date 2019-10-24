@@ -41,7 +41,7 @@ os.system("adduser --system --ingroup www-data django")
 os.system("mkdir -p {}".format(installdir))
 
 # copy the app in there
-os.system("cp -r {} {}".format(path, installdir))
+os.system("cp -r {}/* {}".format(path, installdir))
 
 # change the owner
 os.system("chown -R :www-data {}".format(installdir))
@@ -68,10 +68,10 @@ os.system("systemctl enable nginx && systemctl start nginx")
 # configure the app
 #
 
-os.system("cd{}".format(installdir))
+os.system("cd {}".format(installdir))
 
 # set up static files
-os.system("cd {}python3 manage.py makestatic")
+os.system("python3 manage.py makestatic")
 
 # init database and add admin account
 os.system('python3 manage.py makemigrations jsonapi')
