@@ -133,3 +133,5 @@ static/
 jsonapi/migrations
 jsonapi/__pycache__/
 db.sqlite3
+secretkey.txt
+hosts.txt

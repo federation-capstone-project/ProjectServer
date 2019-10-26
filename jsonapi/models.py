@@ -155,6 +155,15 @@ class StudentEventViewSet(viewsets.ModelViewSet):
     queryset = StudentEvent.objects.none()
     serializer_class = StudentEventSerializer
 
+class RollCallSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentEvent
+        fields = ['student_id', 'event', 'attended', 'manual']
+
+class RollCallViewSet(viewsets.ModelViewSet):
+    queryset = StudentEvent.objects.all()
+    serializer_class = RollCallSerializer
+
 class Config(models.Model):
     starting_date = models.DateField(default=date.today())
     ending_date = models.DateField(default=date.today()+timedelta(weeks=12))

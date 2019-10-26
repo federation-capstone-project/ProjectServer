@@ -27,6 +27,19 @@ class MyStudentInfo(generics.ListAPIView):
     def get_queryset(self):
         return Student.objects.filter(student_user=self.request.user)
 
+class RollCall(generics.CreateAPIView):
+    serializer_class = RollCallSerializer
+
+    def post(self, request, *args, **kwargs):
+        student_event = StudentEvent.objects.create(
+            student = Student.objects.filter(student_user=self.request.user)[:1].get(),
+            event = Event.objects.get(id=request.data.get("event")),
+            attended = request.data.get("attended") == 'true',
+            manual = request.data.get("manual") == 'true'
+        )
+        student_event.save()
+        return HttpResponse("hoo boi")
+
 class StudentSignUpView(CreateView):
     model = User
     form_class = StudentSignUpForm
