@@ -31,6 +31,8 @@ The first step to configuring the app is to create the config table in the app.
 
 # API Endpoints and Server Testing
 
+The server has a number of endpoints that can be accessed using curl or a web browser using the browsable API system from django rest framework.
+
 # Development
 
 There are a few key key files to check if you wish to extend the app.

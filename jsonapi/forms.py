@@ -18,7 +18,7 @@ class StudentSignUpForm(UserCreationForm):
         #     student_phone="0400000000",
         #     student_email="fake123@fake.com")
         
-        #this is a dirty dirty fucking hack with consequences. -Nine
+        #this is something of a hack -Nine
         lookup = Student.objects.filter(student_id=user.username)
         for student in lookup:
             student.student_user=user
