@@ -75,7 +75,7 @@ os.system("cd {}".format(installdir))
 os.system('python3 manage.py generate_secret_key --replace secretkey.txt')
 
 #add server to allowed hosts
-with open(os.path.join(installdir, 'hosts.txt')) as f:
+with open(os.path.join(installdir, 'hosts.txt'), "w+") as f:
     f.writeln(domain)
     f.writeln(ip)
 

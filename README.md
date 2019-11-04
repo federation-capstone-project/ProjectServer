@@ -11,7 +11,8 @@ To deploy the app on a fresh install of ubuntu 18.04:
 ```
 sudo apt install git
 git clone https://github.com/federation-capstone-project/ProjectServer.git && cd ProjectServer
-./setup.py
+chmod +x setup.py
+sudo ./setup.py
 ```
 
 The app's install directory can be found at `/var/www/html/capstoneserver` this directory can be edited by root or any user on the www-data group.
@@ -27,7 +28,6 @@ There is a web administration interface at `http://<domain/ip>/admin/` the defau
 # Web Interface
 
 The first step to configuring the app is to create the config table in the app.
-
 
 # API Endpoints and Server Testing
 
@@ -52,3 +52,10 @@ process
 # Changing server backend
 
 By default the server uses a local SQLite database and this is what our server has been tested against for ease and simplicity, it may be that other backends are required. Our server app is simple enough that changing the DB should be as easy as changing a few lines of code, but this is untested and unsupported so your mileage may vary.
+
+```
+document
+the
+process
+```
+
