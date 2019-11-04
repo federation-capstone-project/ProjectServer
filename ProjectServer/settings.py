@@ -20,17 +20,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'wd2o#o42=s7b--qtt9$t&f1x@&#wsr0#2n6l(2maxkp4k*ki^9'
+# This code loads the secret key from the disk, falling back to a default
+# if it is not available, in production this should only happen briefly
+# during deployment and never become web facing.
 
-with open(os.path.join(BASE_DIR, 'secretkey.txt')) as f:
-    SECRET_KEY = f.read().strip()
+try:
+    with open(os.path.join(BASE_DIR, 'secretkey.txt')) as f:
+        SECRET_KEY = f.read().strip()
+except:
+    SECRET_KEY = 'wd2o#o42=s7b--qtt9$t&f1x@&#wsr0#2n6l(2maxkp4k*ki^9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 #ALLOWED_HOSTS = ["https://capstone.blny.me", "192.168.15.120", "localhost","127.0.0.1"]
-with open(os.path.join(BASE_DIR, 'hosts.txt')) as f:
-    hosts = f.readlines()
+try:
+    with open(os.path.join(BASE_DIR, 'hosts.txt')) as f:
+        hosts = f.readlines()
+except:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 ALLOWED_HOSTS = [host.strip() for host in hosts] + ['127.0.0.1', 'localhost']
 

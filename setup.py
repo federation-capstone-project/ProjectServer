@@ -22,7 +22,8 @@ if not os.geteuid() == 0:
 # installconfig
 #
 
-domain = input("enter the server domain or ip:")
+domain = input("enter the server domain:")
+ip = input("enter the server ip:")
 path = os.path.dirname(os.path.realpath(__file__))
 installdir = "/var/www/html/capstoneserver"
 
@@ -51,7 +52,7 @@ with open(path+"/unix_configs/systemd_template", "r") as template:
     with open(path+"/unix_configs/systemd", "w+") as config:
         config.write(template.read().format(installdir))
 
-os.system("ln -s {} /etc/systemd/system/projectserver.service".format(os.path.join(path, "unix_configs/systemd")))
+os.system("ln -s {} /etc/systemd/system/projectserver.service".format(os.path.join(installdir, "unix_configs/systemd")))
 os.system("systemctl enable projectserver && systemctl start projectserver")
 
 # install nginx configuration
@@ -59,8 +60,8 @@ with open(path+"/unix_configs/nginx_template", "r") as template:
     with open(path+"/unix_configs/nginx", "w+") as config:
         config.write(template.read().format(domain, installdir, installdir))
 
-os.system("ln -s {} /etc/nginx/sites-available/projectserver".format(os.path.join(path, "unix_configs/nginx")))
-os.system("ln -s {} /etc/nginx/sites-enabled/projectserver".format(os.path.join(path, "unix_configs/nginx")))
+os.system("ln -s {} /etc/nginx/sites-available/projectserver".format(os.path.join(installdir, "unix_configs/nginx")))
+os.system("ln -s {} /etc/nginx/sites-enabled/projectserver".format(os.path.join(installdir, "unix_configs/nginx")))
 os.system("rm /etc/nginx/sites-enabled/default")
 os.system("systemctl enable nginx && systemctl start nginx")
 
@@ -75,7 +76,8 @@ os.system('python3 manage.py generate_secret_key --replace secretkey.txt')
 
 #add server to allowed hosts
 with open(os.path.join(BASE_DIR, 'hosts.txt')) as f:
-    hosts = f.write(domain)
+    f.writeln(domain)
+    f.writeln(ip)
 
 # set up static files
 os.system("python3 manage.py collectstatic")
