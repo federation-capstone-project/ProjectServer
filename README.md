@@ -48,3 +48,7 @@ document
 the
 process
 ```
+
+# Changing server backend
+
+By default the server uses a local SQLite database and this is what our server has been tested against for ease and simplicity, it may be that other backends are required. Our server app is simple enough that changing the DB should be as easy as changing a few lines of code, but this is untested and unsupported so your mileage may vary.
