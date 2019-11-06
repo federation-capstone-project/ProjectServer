@@ -38,7 +38,7 @@ try:
     with open(os.path.join(BASE_DIR, 'hosts.txt')) as f:
         hosts = f.readlines()
 except:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    hosts = []
 
 ALLOWED_HOSTS = [host.strip() for host in hosts] + ['127.0.0.1', 'localhost']
 
