@@ -48,16 +48,16 @@ os.system("cp -r {}/* {}".format(path, installdir))
 os.system("chown -R :www-data {}".format(installdir))
 
 # install systemd unit file
-with open(path+"/unix_configs/systemd_template", "r") as template:
-    with open(path+"/unix_configs/systemd", "w+") as config:
+with open(installdir+"/unix_configs/systemd_template", "r") as template:
+    with open(installdir+"/unix_configs/systemd", "w+") as config:
         config.write(template.read().format(installdir))
 
 os.system("ln -s {} /etc/systemd/system/projectserver.service".format(os.path.join(installdir, "unix_configs/systemd")))
 os.system("systemctl enable projectserver && systemctl start projectserver")
 
 # install nginx configuration
-with open(path+"/unix_configs/nginx_template", "r") as template:
-    with open(path+"/unix_configs/nginx", "w+") as config:
+with open(installdir+"/unix_configs/nginx_template", "r") as template:
+    with open(installdir+"/unix_configs/nginx", "w+") as config:
         config.write(template.read().format(domain, installdir, installdir))
 
 os.system("ln -s {} /etc/nginx/sites-available/projectserver".format(os.path.join(installdir, "unix_configs/nginx")))

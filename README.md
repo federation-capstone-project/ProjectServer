@@ -33,6 +33,15 @@ The first step to configuring the app is to create the config table in the app.
 
 The server has a number of endpoints that can be accessed using curl or a web browser using the browsable API system from django rest framework.
 
+```
+<root_domain>/signup/		# allows users to register a password
+<root_domain>/mycourses/	# returns a list of the users courses
+<root_domain>/myinfo/		# returns the users info on the server
+<root_domain>/myevents/		# returns a list of the users events
+<root_domain>/rollcall/		# allows users to post attendance to the app
+<root_domain>/api-auth/		# endpoint to authenticate and receive a token
+```
+
 # Development
 
 There are a few key key files to check if you wish to extend the app.
@@ -44,18 +53,23 @@ There are a few key key files to check if you wish to extend the app.
 The app can be run on localhost from the app directory for development purposes, the process is
 
 ```
-document
-the
-process
+python3 manage.py collectstatic
+python3 manage.py makemigrations jsonapi
+python3 manage.py migrate
+python3 manage.py runserver
 ```
+
+It is a good idea to change DEBUG to True in `ProjectServer/settings.py`
 
 # Changing server backend
 
 By default the server uses a local SQLite database and this is what our server has been tested against for ease and simplicity, it may be that other backends are required. Our server app is simple enough that changing the DB should be as easy as changing a few lines of code, but this is untested and unsupported so your mileage may vary.
 
-```
-document
-the
-process
-```
+* edit `ProjectServer/settings.py`
+* change the ENGINE key in the DATABASES var to your desired DB
+* change `read_default_file` to a path to a YAML file containing your db config
+
+you can find more detailed instructions at <https://docs.djangoproject.com/en/2.2/ref/databases/>
+
+It is recommended that you do not use a table in a production/mission-critical db server with this server prototype.
 
