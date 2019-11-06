@@ -6,4 +6,5 @@ djangorestframework-jwt
 uwsgi
 django-filter
 django-phonenumber-field
+django-generate-secret-key
 phonenumbers
