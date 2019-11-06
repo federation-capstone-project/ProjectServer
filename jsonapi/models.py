@@ -106,7 +106,7 @@ class Student(models.Model):
 
     @property
     def student_percent(self):
-        my_events = StudentEvent.objects.filter(student_id=self.student_id)
+        my_events = StudentEvent.objects.filter(student=self)
         events = my_events.count()
         attended = my_events.filter(attended=True).count()
         try:
@@ -116,7 +116,7 @@ class Student(models.Model):
     
     @property
     def student_percent_string(self):
-        my_events = StudentEvent.objects.filter(student_id=self.student_id)
+        my_events = StudentEvent.objects.filter(student=self)
         events = my_events.count()
         attended = my_events.filter(attended=True).count()
         try:

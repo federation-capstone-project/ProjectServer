@@ -77,8 +77,7 @@ os.system('python3 manage.py generate_secret_key --replace secretkey.txt')
 #add server to allowed hosts
 os.system("rm hosts.txt")
 with open(os.path.join(installdir, 'hosts.txt'), "w+") as f:
-    f.write(domain)
-    f.write(ip)
+    f.write("{}\n{}".format(domain, ip))
 
 # set up static files
 os.system("python3 manage.py collectstatic")

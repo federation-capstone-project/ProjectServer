@@ -11,8 +11,7 @@ To deploy the app on a fresh install of ubuntu 18.04:
 ```
 sudo apt install git
 git clone https://github.com/federation-capstone-project/ProjectServer.git && cd ProjectServer
-chmod +x setup.py
-sudo ./setup.py
+sudo python3 ./setup.py
 ```
 
 The app's install directory can be found at `/var/www/html/capstoneserver` this directory can be edited by root or any user on the www-data group.
@@ -28,6 +27,7 @@ There is a web administration interface at `http://<domain/ip>/admin/` the defau
 # Web Interface
 
 The first step to configuring the app is to create the config table in the app.
+The next is to program in your students, clinicians, courses, etc.
 
 # API Endpoints and Server Testing
 

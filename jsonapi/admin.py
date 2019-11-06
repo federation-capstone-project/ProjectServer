@@ -10,6 +10,7 @@ class StudentAdmin(admin.ModelAdmin):
     extra = 0
 
 admin.site.register(Student, StudentAdmin)
+admin.site.register(StudentEvent)
 admin.site.register(User, UserAdmin)
 admin.site.register(Course)
 admin.site.register(Event)
