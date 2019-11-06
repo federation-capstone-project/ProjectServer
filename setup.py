@@ -72,7 +72,7 @@ os.system("systemctl enable nginx && systemctl start nginx")
 os.system("cd {}".format(installdir))
 
 #generate a new secret key
-os.system('python3 manage.py generate_secret_key --replace secretkey.txt')
+os.system('python3 manage.py generate_secret_key --replace')
 
 #add server to allowed hosts
 os.system("rm hosts.txt")

@@ -31,7 +31,7 @@ except:
     SECRET_KEY = 'wd2o#o42=s7b--qtt9$t&f1x@&#wsr0#2n6l(2maxkp4k*ki^9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #ALLOWED_HOSTS = ["https://capstone.blny.me", "192.168.15.120", "localhost","127.0.0.1"]
 try:
@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-    'phonenumber_field'
+    'phonenumber_field',
+    'django_generate_secret_key'
 ]
 
 MIDDLEWARE = [
