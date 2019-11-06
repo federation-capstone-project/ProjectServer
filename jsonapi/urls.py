@@ -19,5 +19,6 @@ urlpatterns = [
     url(r'^mycourses/(?P<student>.+)/$', MyCourseList.as_view()),
     url(r'^myinfo/$', MyStudentInfo.as_view()),
     url(r'^myevents/$', MyEventsList.as_view()),
+    url(r'^rollcall/', RollCall.as_view()),
     url(r'^api-auth', include('rest_framework.urls'))
 ]

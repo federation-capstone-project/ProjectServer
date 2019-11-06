@@ -1,20 +1,53 @@
 {% load static %}<!doctype html>
 <html lang="en">
     <head>
+        <title>Login</title>
+	    <meta charset="UTF-8">
+        {% load static %}
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/js/bootstrap/css/bootstrap.min.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/js/animate/animate.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/js/css-hamburgers/hamburgers.min.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/js/animsition/css/animsition.min.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/js/select2/select2.min.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/js/daterangepicker/daterangepicker.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/css/util.css" %}">
+	    <link rel="stylesheet" type="text/css" href="{% static "jsonapi/css/main.css" %}">
     </head>
     <body>
+        <div class="limiter">
+		<div class="container-login100">
+        <div class="wrap-login100 p-l-40 p-r-40 p-t-40 p-b-40">
         {% block content %}
           <div class="row">
             <div class="col-md-8 col-sm-10 col-12">
-              <h2>Sign up as a {{ user_type }}</h2>
               <form method="post" novalidate>
                 {% csrf_token %}
+                <span class="login100-form-title p-b-32">Account Sign up</span>
                 <input type="hidden" name="next" value="{{ next }}">
                 {{ form }}
-                <button type="submit" class="btn btn-success">Sign up</button>
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="btn btn-success login100-form-btn">Sign up</button>
+                </div>
               </form>
             </div>
           </div>
         {% endblock %}
+        </div>
+        </div>
+        </div>
+
+        <script src="{% static "jsonapi/js/jquery/jquery-3.2.1.min.js" %}"></script>
+	    <script src="{% static "jsonapi/js/animsition/js/animsition.min.js" %}"></script>
+	    <script src="{% static "jsonapi/js/bootstrap/js/popper.js" %}"></script>
+	    <script src="{% static "jsonapi/js/bootstrap/js/bootstrap.min.js" %}"></script>
+	    <script src="{% static "jsonapi/js/select2/select2.min.js" %}"></script>
+	    <script src="{% static "jsonapi/js/daterangepicker/moment.min.js" %}"></script>
+	    <script src="{% static "jsonapi/js/daterangepicker/daterangepicker.js" %}"></script>
+	    <script src="{% static "jsonapi/js/countdowntime/countdowntime.js" %}"></script>
+	    <script src="{% static "jsonapi/js/main.js" %}"></script>
     </body>
 </html>

@@ -1,7 +1,8 @@
-Django==2.2.1
+Django==2.2.4
 pytz==2019.1
 sqlparse==0.3.0
 djangorestframework
+djangorestframework-jwt
 uwsgi
 django-filter
 django-phonenumber-field

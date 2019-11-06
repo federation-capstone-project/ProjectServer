@@ -6,7 +6,7 @@ server {
     listen 80;
     server_name capstone.blny.me;
     charset utf-8;
-    
+
     location /static {
     	alias /home/nineh/ProjectServer/static;
     }
